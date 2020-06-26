@@ -1,7 +1,7 @@
 # The `vim-zettel` package
 
 This is a Vim plugin that implements ideas of the
-[Zettelkasten](https://zettelkasten.de/) method using Vimwiki. 
+[Zettelkasten](https://zettelkasten.de/) method using Vimwiki.
 It supports both Vimwiki and Markdown syntaxes.
 
 You can read the full documentation using
@@ -14,13 +14,12 @@ command in Vim after package installation.
 
 Using Vundle:
 
-
     Plugin 'vimwiki/vimwiki'
     Plugin 'junegunn/fzf'
     Plugin 'junegunn/fzf.vim'
     Plugin 'michal-h21/vim-zettel'
-    
-[Silver Searcher](https://github.com/ggreer/the_silver_searcher) is used for searching in the notes by default. 
+
+[Silver Searcher](https://github.com/ggreer/the_silver_searcher) is used for searching in the notes by default.
 The used command can be changed by setting the `g:zettel_fzf_command` variable.
 
 # Configuration
@@ -34,19 +33,18 @@ To open the index page of your wiki, invoke Vim with the following parameters:
 
     vim -c VimwikiIndex
 
-
 `Vim-zettel` also provides some custom configurations. The following sample
-contains default values for  available settings. It is not necessary to use
+contains default values for available settings. It is not necessary to use
 them in your `.vimrc` unless you want to use a different value.
 
     " Filename format. The filename is created using strftime() function
     let g:zettel_format = "%y%m%d-%H%M"
-    " command used for VimwikiSearch 
+    " command used for VimwikiSearch
     " default value is "ag". To use other command, like ripgrep, pass the
     " command line and options:
     let g:zettel_fzf_command = "rg --column --line-number --ignore-case --no-heading --color=always "
     " Disable default keymappings
-    let g:zettel_default_mappings = 0 
+    let g:zettel_default_mappings = 0
     " This is basically the same as the default configuration
     augroup filetype_vimwiki
       autocmd!
@@ -90,7 +88,7 @@ Template can be declared using the `g:zettel_options` variable:
 Sample template:
 
     = %title =
-    
+
     Backlink: %backlink
     ----
     %footer
@@ -99,11 +97,10 @@ Variables that start with the `%` will be expanded. Supported variables:
 
 - `%title` - title of the new note
 - `%backlink` - back link to the parent note
-- `%footer` - text from the parent note footer. Footer is separated from  the
-  main text by horizontal rule  (`----`). It can contain some information
+- `%footer` - text from the parent note footer. Footer is separated from the
+  main text by horizontal rule (`----`). It can contain some information
   shared by notes. For example notes about publication can share citation of that
   publication.
-
 
 # Usage
 
@@ -121,6 +118,7 @@ basic wiki and navigate it.
   %title Note title
   %date current date
   ```
+
   where title is the first parameter to `:ZettelNew`.
 
 - `:ZettelOpen` command - perform fulltext search using FZF.
@@ -130,16 +128,16 @@ basic wiki and navigate it.
 - `:ZettelInbox` command – insert list of notes that no other note links to.
 
 - `:ZettelGenerateLinks` command – insert list of all wiki pages in the current
-  page. It needs updated tags database. The tags database can be updated  using the
+  page. It needs updated tags database. The tags database can be updated using the
   `:VimwikiRebuildTags` command.
 
 - `:ZettelGenerateTags` command – insert list of tags and pages that used these tags in the current
-  page. It needs updated tags database. The tags database can be updated  using
+  page. It needs updated tags database. The tags database can be updated using
   the `:VimwikiRebuildTags` command. It only supports the `Vimwiki` style tags in the form `:tag1:tag2`.
   These work even in the `Markdown` mode.
 
 - `z` command in the visual mode – create a new wiki file using selected text
-  for the note title 
+  for the note title
 
 - `[[` command in the insert mode – create a link to a note. It uses FZF for the note searching.
 
@@ -155,7 +153,6 @@ to the document syntax format using [Pandoc](https://pandoc.org).
 
 - `:ZettelInsertNote` - select notes using FZF. Multiple notes can be selected
   using the `<TAB>` key. The selected notes are inserted in the current document.
-
 
 ## Useful Vimwiki commands
 

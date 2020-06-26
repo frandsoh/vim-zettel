@@ -34,7 +34,7 @@ endfunction
 
 " markdown test for front matter end
 function! s:test_header_end_md(line, i)
-  if a:i > 0 
+  if a:i > 0
     let pos = matchstrpos(a:line, "^\s*---")
     return pos[1]
   endif
@@ -45,7 +45,7 @@ endfunction
 function! s:test_header_end_wiki(line, i)
   " return false for all lines that start with % character
   let pos = matchstrpos(a:line,"^\s*%")
-  if pos[1] > -1 
+  if pos[1] > -1
     return -1
   endif
   " first line which is not tag should be selected
@@ -63,7 +63,7 @@ if vimwiki#vars#get_wikilocal('syntax') ==? 'markdown'
   let s:header_delimiter = "---"
   let s:insert_mode_title_format = "``l"
   let s:grep_link_pattern = '/\(%s\.\{-}m\{-}d\{-}\)/' " match filename in  parens. including optional .md extension
-  let s:section_pattern = "# %s"
+  let s:section_pattern = "## %s"
 else
   let s:link_format = "[[%link|%title]]"
   let s:link_stub = "[[%link|%title]]"
@@ -90,7 +90,7 @@ else
   function! zettel#vimwiki#update_listing(lines, title, links_rx)
     call vimwiki#base#update_listing_in_buffer(a:lines, a:title, a:links_rx, line('$')+1, 1)
   endfunction
-endif 
+endif
 
 " user configurable fields that should be inserted to a front matter of a new
 " Zettel
@@ -120,7 +120,7 @@ function! zettel#vimwiki#find_header_end(filename)
   for line in lines
     " let res = s:test_header_end(line, i)
     let res = Header_test(line, i)
-    if res > -1 
+    if res > -1
       return i
     endif
     let i = i + 1
@@ -160,7 +160,7 @@ function! s:numtoletter(num)
   let result =  strpart(s:letters, charindex - 1, 1)
   if (quotient>=1)
     return <sid>numtoletter(float2nr(quotient)) . result
-  endif 
+  endif
   return result
 endfunction
 
@@ -188,7 +188,7 @@ function! zettel#vimwiki#count_files(pattern)
 endfunction
 
 function! zettel#vimwiki#next_counted_file()
-  " count notes in the current wiki and return 
+  " count notes in the current wiki and return
   let ext = vimwiki#vars#get_wikilocal('ext')
   let next_file = zettel#vimwiki#count_files("*" . ext) + 1
   return next_file
@@ -196,7 +196,7 @@ endfunction
 
 function! zettel#vimwiki#new_zettel_name(...)
   let newformat = g:zettel_format
-  if a:0 > 0 && a:1 != "" 
+  if a:0 > 0 && a:1 != ""
     " title contains safe version of the original title
     " raw_title is exact title
     let title = zettel#vimwiki#escape_filename(a:1)
@@ -323,7 +323,7 @@ function! zettel#vimwiki#format_search_link(file, title)
 endfunction
 
 " This function is executed when the page referenced by the inserted link
-" doesn't contain  title. The cursor is placed at the position where title 
+" doesn't contain  title. The cursor is placed at the position where title
 " should start, and insert mode is started
 function! zettel#vimwiki#insert_mode_in_title()
   execute "normal! " .s:insert_mode_title_format | :startinsert
@@ -334,12 +334,12 @@ function! zettel#vimwiki#get_title(filename)
   let title = ""
   let lsource = readfile(filename)
   " this code comes from vimwiki's html export plugin
-  for line in lsource 
+  for line in lsource
     if line =~# '^\s*%\=title'
       let title = matchstr(line, '^\s*%\=title:\=\s\zs.*')
       return title
     endif
-  endfor 
+  endfor
   return ""
 endfunction
 
@@ -347,7 +347,7 @@ endfunction
 " check if the file with the current filename exits in wiki
 function! s:wiki_file_not_exists(filename)
   let link_info = vimwiki#base#resolve_link(a:filename)
-  return empty(glob(link_info.filename)) 
+  return empty(glob(link_info.filename))
 endfunction
 
 " create new zettel note
@@ -359,7 +359,7 @@ function! zettel#vimwiki#create(...)
   echomsg("new zettel: ". format)
   " detect if the wiki file exists
   let wiki_not_exists = s:wiki_file_not_exists(format)
-  " let vimwiki to open the wiki file. this is necessary  
+  " let vimwiki to open the wiki file. this is necessary
   " to support the vimwiki navigation commands.
   call vimwiki#base#open_link(':e ', format)
   " add basic template to the new file
@@ -437,7 +437,7 @@ function! s:read_footer(filename)
   let footer_lines = []
   let found_footer = -1
   " return empty footer if we couldn't find the footer
-  let footer = "" 
+  let footer = ""
   " process lines from the last one and try to find the rule
   for line in reverse(lines) 
     if match(line, "^ \*----") == 0
@@ -454,7 +454,7 @@ endfunction
 
 " populate new note using template
 function! zettel#vimwiki#expand_template(template, variables)
-  " readfile returns list, we need to convert it to string 
+  " readfile returns list, we need to convert it to string
   " in order to do global replace
   let template_file = expand(a:template)
   if !filereadable(template_file) 
