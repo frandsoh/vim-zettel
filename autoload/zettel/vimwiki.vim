@@ -62,7 +62,7 @@ if vimwiki#vars#get_wikilocal('syntax') ==? 'markdown'
   let s:header_format = "%s: %s"
   let s:header_delimiter = "---"
   let s:insert_mode_title_format = "``l"
-  let s:grep_link_pattern = '/\(%s\.\{-}m\{-}d\{-}\)/' " match filename in  parens. including optional .md extension
+  let s:grep_link_pattern = '/\(%s\)/' " match filename in  parens. including optional .md extension
   let s:section_pattern = "## %s"
 else
   let s:link_format = "[[%link|%title]]"
@@ -543,7 +543,7 @@ endfunction
 
 " insert list of links to the current page
 function! s:insert_link_array(title, lines)
-  let links_rx = '\m^\s*'.vimwiki#u#escape(vimwiki#lst#default_symbol()).' '
+  let links_rx = '\m^\s*' . vimwiki#u#escape(vimwiki#lst#default_symbol()) . ' '
   call zettel#vimwiki#update_listing(a:lines, a:title, links_rx)
 endfunction
 
