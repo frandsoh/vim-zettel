@@ -63,7 +63,7 @@ if vimwiki#vars#get_wikilocal('syntax') ==? 'markdown'
   let s:header_delimiter = "---"
   let s:insert_mode_title_format = "``l"
   let s:grep_link_pattern = '/\(%s\.\{-}m\{-}d\{-}\)/' " match filename in  parens. including optional .md extension
-  let s:section_pattern = "## %s"
+  let s:section_pattern = "# %s"
 else
   let s:link_format = "[[%link|%title]]"
   let s:link_stub = "[[%link|%title]]"
@@ -240,13 +240,13 @@ endfunction
 
 " find title in the zettel file and return correct link to it
 function! zettel#vimwiki#get_link(filename)
-  let title =zettel#vimwiki#get_title(a:filename)
+  let title = zettel#vimwiki#get_title(a:filename)
   let wikiname = fnamemodify(a:filename, ":t:r")
   if title == ""
     " use the Zettel filename as title if it is empty
     let title = wikiname
   endif
-  let link= zettel#vimwiki#format_link(wikiname, title)
+  let link = zettel#vimwiki#format_link(wikiname, title)
   return link
 endfunction
 

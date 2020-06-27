@@ -138,7 +138,7 @@ endif
 " return section title depending on the syntax
 function! s:make_section(title, ft)
   if a:ft ==? "md"
-    return "# " . a:title
+    return "## " . a:title
   else
     return "= " . a:title . " ="
   endif
