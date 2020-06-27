@@ -63,7 +63,7 @@ if vimwiki#vars#get_wikilocal('syntax') ==? 'markdown'
   let s:header_delimiter = "---"
   let s:insert_mode_title_format = "``l"
   let s:grep_link_pattern = '/\(%s\.\{-}m\{-}d\{-}\)/' " match filename in  parens. including optional .md extension
-  let s:section_pattern = "# %s"
+  let s:section_pattern = "## %s"
 else
   let s:link_format = "[[%link|%title]]"
   let s:link_stub = "[[%link|%title]]"
@@ -200,7 +200,7 @@ function! zettel#vimwiki#new_zettel_name(...)
     " title contains safe version of the original title
     " raw_title is exact title
     let title = zettel#vimwiki#escape_filename(a:1)
-    let raw_title = a:1 
+    let raw_title = a:1
   else
     let title = zettel#vimwiki#escape_filename(g:zettel_default_title)
     let raw_title = g:zettel_default_title
@@ -326,7 +326,7 @@ endfunction
 " doesn't contain  title. The cursor is placed at the position where title
 " should start, and insert mode is started
 function! zettel#vimwiki#insert_mode_in_title()
-  execute "normal! " .s:insert_mode_title_format | :startinsert
+  execute "normal! " . s:insert_mode_title_format | :startinsert
 endfunction
 
 function! zettel#vimwiki#get_title(filename)
@@ -439,7 +439,7 @@ function! s:read_footer(filename)
   " return empty footer if we couldn't find the footer
   let footer = ""
   " process lines from the last one and try to find the rule
-  for line in reverse(lines) 
+  for line in reverse(lines)
     if match(line, "^ \*----") == 0
       let found_footer = 0
       break
@@ -457,8 +457,8 @@ function! zettel#vimwiki#expand_template(template, variables)
   " readfile returns list, we need to convert it to string
   " in order to do global replace
   let template_file = expand(a:template)
-  if !filereadable(template_file) 
-    return 
+  if !filereadable(template_file)
+    return
   endif
   let content = readfile(template_file)
   let text = join(content, "\n")
@@ -466,7 +466,7 @@ function! zettel#vimwiki#expand_template(template, variables)
     let text = substitute(text, "%" . key, a:variables[key], "g")
   endfor
   " add template at the end
-  " we must split it, 
+  " we must split it,
   for xline in split(text, "\n")
     call append(line('$'), xline)
   endfor
